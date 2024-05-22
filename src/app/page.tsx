@@ -56,11 +56,11 @@ const Home = () => {
     }
   }, [weather]);
 
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (error) return <p>{error}</p>;
 
   if (loading)
     return (
-      <main className="flex justify-center h-64 items-center">
+      <main className="loader">
         <TailSpin
           visible={true}
           height="80"
