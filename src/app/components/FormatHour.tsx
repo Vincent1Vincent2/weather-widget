@@ -1,4 +1,4 @@
-const formatHour = (timestamp: number) => {
+export const formatHour = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
   const hour = date.getHours();
   const currentHour = new Date().getHours();

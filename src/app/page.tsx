@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
 import WeatherCanvas from "./components/Canvas/WeatherCanvas";
 import useLocation from "./components/Location";
 import { WeatherDetails } from "./components/WeatherDetails";
-import { getWeather } from "./utils/weatherUtil";
+import { getBaseWeather, getWeather } from "./utils/weatherUtil";
 
 const Home = () => {
   const { location, error } = useLocation();
   const [weather, setWeather] = useState<any>(null);
+  const [baseWeather, setBaseWeather] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,20 +23,43 @@ const Home = () => {
           console.error(error);
           setLoading(false);
         });
+      getBaseWeather(location.lat, location.lon)
+        .then((data) => {
+          setBaseWeather(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
     }
   }, [location]);
 
   console.log(weather);
 
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <main className="flex justify-center h-64 items-center">
+        <TailSpin
+          visible={true}
+          height="80"
+          width="80"
+          color="#3279a8"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </main>
+    );
 
   return (
     <main>
-      {weather && <WeatherCanvas weather={weather} />}
+      {weather && <WeatherCanvas weather={weather} baseWeather={baseWeather} />}
 
-      {weather && <WeatherDetails weather={weather} />}
+      {weather && <WeatherDetails weather={weather} baseWeather={weather} />}
     </main>
   );
 };

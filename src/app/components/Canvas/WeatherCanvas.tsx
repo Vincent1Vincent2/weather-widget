@@ -1,18 +1,23 @@
 import { useEffect, useRef } from "react";
+import { formatTemperature } from "../FormatTemp";
 
 interface WeatherCanvasProps {
   weather: any;
+  baseWeather: any;
 }
 
-const WeatherCanvas: React.FC<WeatherCanvasProps> = ({ weather }) => {
-  const { name } = weather;
+const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
+  weather,
+  baseWeather,
+}) => {
+  const { name } = baseWeather;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const temp = weather.main.temp;
-  const maxTemp = weather.main.temp_max;
-  const minTemp = weather.main.temp_min;
-  const icon = weather.weather[0].icon;
-  const description = weather.weather[0].description;
+  const temp = formatTemperature(weather.current.temp);
+  const maxTemp = formatTemperature(weather.daily[0].temp.max);
+  const minTemp = formatTemperature(weather.daily[0].temp.min);
+  const icon = weather.current.weather[0].icon;
+  const description = weather.current.weather[0].description;
 
   const drawWeatherInfo = (
     ctx: CanvasRenderingContext2D,

@@ -1,4 +1,4 @@
-const formatTemperature = (temp: number) => {
+export const formatTemperature = (temp: number) => {
   return Math.floor(temp);
 };
 
