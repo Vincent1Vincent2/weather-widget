@@ -4,7 +4,11 @@ import { TailSpin } from "react-loader-spinner";
 import WeatherCanvas from "./components/Canvas/WeatherCanvas";
 import useLocation from "./components/Location";
 import { WeatherDetails } from "./components/WeatherDetails";
-import { getBaseWeather, getWeather } from "./utils/weatherUtil";
+import {
+  getBaseWeather,
+  getWeather,
+  getWeatherIconUrl,
+} from "./utils/weatherUtil";
 
 const Home = () => {
   const { location, error } = useLocation();
@@ -35,7 +39,22 @@ const Home = () => {
     }
   }, [location]);
 
-  console.log(weather);
+  useEffect(() => {
+    if (weather) {
+      const weatherIconUrl = getWeatherIconUrl(weather.current.weather[0].icon);
+      const link = document.querySelector(
+        "link[rel~='icon']"
+      ) as HTMLLinkElement;
+      if (link) {
+        link.href = weatherIconUrl;
+      } else {
+        const newLink = document.createElement("link");
+        newLink.rel = "icon";
+        newLink.href = weatherIconUrl;
+        document.head.appendChild(newLink);
+      }
+    }
+  }, [weather]);
 
   if (error) return <p className="text-red-600">{error}</p>;
 

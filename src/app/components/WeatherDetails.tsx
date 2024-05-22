@@ -1,7 +1,9 @@
 import { useState } from "react";
+import "../styles/styles.css";
 import { getWeatherIconUrl } from "../utils/weatherUtil";
-import FormattedHour from "./FormatHour";
-import FormattedTemp from "./FormatTemp";
+
+import { formatHour } from "./FormatHour";
+import { formatTemperature } from "./FormatTemp";
 import HourlyForecast from "./HourlyForecast";
 
 interface PageProps {
@@ -72,9 +74,9 @@ export function WeatherDetails({ weather, baseWeather }: PageProps) {
                   alt={day.weather[0].description}
                 />
                 <div className="minMax">
-                  <FormattedTemp temp={day.temp.min} />
+                  <div>{formatTemperature(day.temp.min)}°</div>
                   <span className="temp"></span>
-                  <FormattedTemp temp={day.temp.max} />
+                  <div>{formatTemperature(day.temp.max)}°</div>
                 </div>
               </div>
             ))}
@@ -91,13 +93,13 @@ export function WeatherDetails({ weather, baseWeather }: PageProps) {
             <div className="sunSet">
               <span>
                 <h4>Sunset</h4>
-                <FormattedHour hour={daily[0].sunset} />
+                <p>{formatHour(daily[0].sunset)}</p>
               </span>
             </div>
             <div className="feelsLike">
               <span>
                 <h5>Feels like</h5>
-                <FormattedTemp temp={daily[0].feels_like} />
+                <p>{formatTemperature(daily[0].feels_like.day)}°</p>
               </span>
             </div>
             <div className="wind">

@@ -5,9 +5,3 @@ export const formatHour = (timestamp: number) => {
 
   return hour === currentHour ? "Now" : hour.toString().padStart(2, "0");
 };
-
-const FormattedHour = ({ hour }: { hour: any }) => {
-  return <div>{formatHour(hour)}</div>;
-};
-
-export default FormattedHour;

@@ -1,0 +1,224 @@
+.toggle-button {
+  background-color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 16px;
+  width: 160px;
+  height: 30px;
+  filter: drop-shadow(1px 1px 1px #00000000);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  position: absolute;
+}
+
+.toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.672);
+  cursor: pointer;
+}
+
+.weather-details {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.forecast-container {
+  overflow-x: scroll;
+}
+
+.forecast-container:nth-child(2) {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  background: rgba(220, 220, 220, 0.274);
+  border-radius: 16px;
+  padding: 1.5rem 5rem;
+  position: absolute;
+  top: 300px;
+}
+
+.hourly-forecast {
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+  align-items: center;
+  min-width: 240px;
+  background: rgba(255, 255, 255, 0.901);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1.5rem 1rem;
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecast-container:nth-child(3) {
+  background: rgba(228, 227, 227, 0.274);
+  border-radius: 16px;
+  border: 1px solid rgba(185, 185, 185, 0.3);
+  border-radius: 16px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  gap: 1.5rem;
+  position: absolute;
+  top: 300px;
+}
+
+.daily-forecast {
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.901);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1.5rem 1rem;
+}
+
+.daily-item {
+  display: flex;
+  align-items: center;
+}
+
+.hourly-item img,
+.daily-item img {
+  display: block;
+  margin: 0 auto;
+  width: 65px;
+}
+
+.advanceInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  gap: 1rem;
+}
+
+.uv,
+.sunSet,
+.feelsLike,
+.wind {
+  background: rgba(255, 255, 255, 0.901);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 8rem;
+}
+
+.uv {
+  min-width: 92%;
+  padding: 1.5rem 1rem;
+}
+
+.sunSet {
+  min-width: calc(46% - 0.5rem);
+  padding: 0.75rem 0.5rem;
+}
+
+.feelsLike {
+  min-width: calc(46% - 0.5rem);
+  padding: 0.75rem 0.5rem;
+}
+
+.wind {
+  min-width: 92%;
+  padding: 1.5rem 1rem;
+}
+
+@media (max-width: 1800px) {
+  .forecast-container:nth-child(3) {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1070px) {
+  .forecast-container:nth-child(3) {
+    width: 90%;
+  }
+}
+
+@media (max-width: 970px) {
+  .forecast-container:nth-child(1) {
+    min-width: 75%;
+  }
+  .forecast-container:nth-child(3) {
+    width: 75%;
+  }
+
+  .advanceInfo {
+    width: 95%;
+    row-gap: 2rem;
+  }
+  .daily-forecast {
+    min-width: 85%;
+  }
+  .hourly-item img,
+  .daily-item img {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+  }
+  .toggle-button {
+    font-size: 12px;
+    width: 100px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 610px) {
+  .toggle-button {
+    font-size: 12px;
+    width: 85px;
+    height: 25px;
+  }
+  .forecast-container:nth-child(2) {
+    width: 45%;
+  }
+  .forecast-container:nth-child(3) {
+    width: 75%;
+  }
+
+  .sunSet {
+    min-width: 100%;
+  }
+
+  .feelsLike {
+    min-width: 100%;
+  }
+}
+
+.hourly-forecast::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hourly-forecast::-webkit-scrollbar-thumb {
+  background: rgba(203, 203, 203, 0.5);
+  border-radius: 10px;
+}
+
+.hourly-forecast::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hourly-forecast::-webkit-scrollbar-track {
+  background: transparent;
+}
