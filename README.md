@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+ <div style="display:flex; flex-direction: row; justify-content: center;  gap: 1rem;  align-items: center">
 
-## Getting Started
+# Weather Widget - [Go to site](https://weather-widget-sand-nine.vercel.app/)
 
-First, run the development server:
+ </div>
+
+ <div style="display:flex; flex-direction: row; justify-content: center;  gap: 1rem;  align-items: center ">
+<img src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" width="50">
+ <div style="font-size: 30px">+</div>
+<img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" width="40">
+ </div>
+
+## About
+
+This is a weather widget with animating and changing backgrounds according to the weather wherever you are!
+
+Fetures
+
+- Display weather based on location
+- 24 hour forecast
+- Advance view with 7 day forecast, uv index, wind speed
+- Animated Clouds
+- Animated Rain
+- Raising sun according to the sun in your location
+- Moon at night
+
+<div style="display:flex; flex-direction: column; justify-content: center;  gap: 3rem;  align-items: center; padding: 3rem 0rem" >
+<img src="src/assets/Rain.gif" width="400" />
+<img src="src/assets/Clouds.gif" width="400" />
+</div>
+
+## Want to run locally?
 
 ```bash
+npm install
+then
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
