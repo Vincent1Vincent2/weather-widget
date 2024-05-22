@@ -13,3 +13,7 @@ export const getWeather = async (lat: number, lon: number) => {
   }
   return response.json();
 };
+
+export const getWeatherIconUrl = (iconCode: string) => {
+  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+};
