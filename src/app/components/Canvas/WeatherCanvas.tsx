@@ -136,7 +136,7 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
         };
       }
     }
-  }, [weather, drawCloudySky, drawWeatherInfo]);
+  }, [weather, drawCloudySky, drawWeatherInfo, drawRain]);
 
   return <canvas ref={canvasRef} />;
 };

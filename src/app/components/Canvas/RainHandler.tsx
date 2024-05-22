@@ -31,7 +31,7 @@ export const useRainHandler = () => {
     width: number,
     height: number
   ) => {
-    ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+    ctx.strokeStyle = "rgba(100,136,234, 0.3)";
     ctx.lineWidth = 2;
 
     raindropPositions.current.forEach((raindrop) => {
