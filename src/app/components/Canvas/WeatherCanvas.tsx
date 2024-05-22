@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
-import { formatTemperature } from "../FormatTemp";
+import { setCanvasBackground } from "./BackgroundHandler";
+import { useCloudHandler } from "./CloudHandler";
+import { useRainHandler } from "./RainHandler";
+import { drawMoon, drawSun } from "./SunMoonHandler";
 
 interface WeatherCanvasProps {
   weather: any;
@@ -10,19 +13,23 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
   weather,
   baseWeather,
 }) => {
-  const { name } = baseWeather;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { initializeClouds, drawCloudySky, cloudPositions } = useCloudHandler();
+  const { initializeRaindrops, drawRain, raindropPositions } = useRainHandler();
+  const { name } = baseWeather;
+  let weatherControl: string = "";
 
-  const temp = formatTemperature(weather.current.temp);
+  const formatTemperature = (temp: number) => Math.floor(temp);
+
+  const currentTemp = formatTemperature(weather.current.temp);
   const maxTemp = formatTemperature(weather.daily[0].temp.max);
   const minTemp = formatTemperature(weather.daily[0].temp.min);
-  const icon = weather.current.weather[0].icon;
-  const description = weather.current.weather[0].description;
 
   const drawWeatherInfo = (
     ctx: CanvasRenderingContext2D,
     width: number,
-    height: number
+    height: number,
+    weather: any
   ) => {
     ctx.fillStyle = "black";
     ctx.font = "bold 40px Arial";
@@ -32,18 +39,22 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
     ctx.fillStyle = "black";
     ctx.font = "30px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(description, width / 2, height / 4 + 40);
-    ctx.fillText(temp + "°", width / 2, height / 4 + 80);
+    ctx.fillText(
+      weather.current.weather[0].description,
+      width / 2,
+      height / 4 + 40
+    );
+    ctx.fillText(currentTemp + " °C", width / 2, height / 4 + 80);
 
     ctx.font = "14px Arial";
     ctx.textAlign = "right";
     ctx.textBaseline = "top";
 
-    ctx.fillText("Max " + maxTemp.toString() + " °", width / 1 - 15, 15);
-    ctx.fillText("Min " + minTemp.toString() + " °", width / 1 - 15, 40);
+    ctx.fillText("Max " + maxTemp.toString() + " °C", width / 1 - 15, 15);
+    ctx.fillText("Min " + minTemp.toString() + " °C", width / 1 - 15, 40);
 
     const img = new Image();
-    img.src = getWeatherIconUrl(icon);
+    img.src = getWeatherIconUrl(weather.current.weather[0].icon);
     img.onload = () => {
       ctx.drawImage(img, width / 2 - 50, height / 4 + 100, 100, 100);
     };
@@ -58,6 +69,15 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
         if (ctx) {
           canvas.width = window.innerWidth;
           canvas.height = 250;
+
+          cloudPositions.current = [];
+          raindropPositions.current = [];
+
+          if (weather.current.weather[0].main === "Clouds") {
+            initializeClouds(3, canvas.width, canvas.height);
+          } else if (weather.current.weather[0].main === "Rain") {
+            initializeRaindrops(100, canvas.width, canvas.height);
+          }
         }
       }
     };
@@ -80,7 +100,31 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
         const render = () => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-          drawWeatherInfo(ctx, canvas.width, canvas.height);
+          const currentHour = new Date().getHours();
+          const isDayTime = currentHour >= 6 && currentHour < 18;
+
+          setCanvasBackground(ctx, canvas.width, canvas.height, weather);
+
+          if (isDayTime) {
+            drawSun(ctx, canvas.width, canvas.height, currentHour);
+          } else {
+            drawMoon(ctx, canvas.width, canvas.height, currentHour);
+          }
+
+          switch (weather.current.weather[0].main) {
+            case "Clear":
+              break;
+            case "Rain":
+              drawRain(ctx, canvas.width, canvas.height);
+              break;
+            case "Clouds":
+              drawCloudySky(ctx, canvas.width, canvas.height);
+              break;
+            default:
+              break;
+          }
+
+          drawWeatherInfo(ctx, canvas.width, canvas.height, weather);
 
           animationFrameId = requestAnimationFrame(render);
         };
@@ -92,7 +136,7 @@ const WeatherCanvas: React.FC<WeatherCanvasProps> = ({
         };
       }
     }
-  }, [weather]);
+  }, [weather, drawCloudySky, drawWeatherInfo]);
 
   return <canvas ref={canvasRef} />;
 };
