@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import WeatherCanvas from "./components/Canvas/WeatherCanvas";
 import useLocation from "./components/Location";
 import { WeatherDetails } from "./components/WeatherDetails";
 import { getWeather } from "./utils/weatherUtil";
@@ -29,7 +30,13 @@ const Home = () => {
 
   if (loading) return <p>Loading...</p>;
 
-  return <main>{weather && <WeatherDetails weather={weather} />}</main>;
+  return (
+    <main>
+      {weather && <WeatherCanvas weather={weather} />}
+
+      {weather && <WeatherDetails weather={weather} />}
+    </main>
+  );
 };
 
 export default Home;
